@@ -9,17 +9,17 @@ class Migration(migrations.Migration):
         Estado = apps.get_model('backend', 'Estado')
         creada = Estado()
         
-        creada.id = 1
+        creada.id = 0
         creada.nombre = 'Creada'
         creada.save()
 
         enProceso = Estado()
-        enProceso.id = 2
+        enProceso.id = 1
         enProceso.nombre = 'En Proceso'
         enProceso.save()
 
         terminada = Estado()
-        terminada.id = 3
+        terminada.id = 2
         terminada.nombre = 'Terminada'
         terminada.save()
 
