@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import path, include
 from backend.models import Tarea, Estado
 from rest_framework import routers, serializers, viewsets
+from rest_framework import permissions, authentication
 
 class EstadoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -23,6 +24,8 @@ class TareaSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'titulo', 'descripcion', 'fecha_inicio', 'fecha_termino', 'estado', 'nombre_estado')        
 
 class TareaViewSet(viewsets.ModelViewSet):
+    authentication_classes = (authentication.TokenAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Tarea.objects.all()
     serializer_class = TareaSerializer
 
@@ -32,5 +35,6 @@ router.register(r'estados', EstadoViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('admin/', admin.site.urls),    
+    path('admin/', admin.site.urls),
+    path('rest-auth/', include('rest_auth.urls'))
 ]
